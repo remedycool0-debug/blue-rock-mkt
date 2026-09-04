@@ -1,7 +1,7 @@
 import type { Course, DemoCase, InsightArticle, Service, Testimonial } from '../types';
 
 export const siteConfig = {
-  email: 'hola@bluerock.pe',
+  email: 'info@bluerock.directory',
   linkedin: '#',
   instagram: '#',
 };
