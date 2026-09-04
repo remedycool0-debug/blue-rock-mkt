@@ -8,18 +8,7 @@ import { courses } from '../data/site';
   <div class="container-shell relative">
     <div class="mb-16 grid items-end gap-10 lg:mb-24 lg:grid-cols-12">
       <h2 class="balance max-w-5xl text-[clamp(3.2rem,6vw,6.5rem)] font-[620] leading-[0.92] tracking-[-0.065em] lg:col-span-8">
-        Cursos para convertir conocimiento
-        <span class="mx-2 inline-block h-[0.62em] w-[1.25em] translate-y-[0.03em] overflow-hidden rounded-full align-baseline">
-          <img
-            class="course-image h-full w-full object-cover grayscale contrast-125"
-            src="https://picsum.photos/seed/bluerock-course-inline/480/240"
-            alt=""
-            width="480"
-            height="240"
-            loading="lazy"
-          />
-        </span>
-        en mejores decisiones.
+        Cursos para convertir conocimiento en mejores decisiones.
       </h2>
       <div class="lg:col-span-4 lg:pl-8">
         <p class="max-w-md text-base leading-relaxed text-white/62">
@@ -34,9 +23,9 @@ import { courses } from '../data/site';
     <div class="grid gap-5 lg:grid-cols-3">
       {courses.map((course) => (
         <a
-          href="/contacto"
+          href={`/cursos#${course.slug}`}
           class="course-card group flex min-h-[39rem] flex-col overflow-hidden rounded-[2rem] border border-white/12 bg-white/[0.055] transition-transform duration-700 ease-out hover:-translate-y-2 focus-visible:outline-lime"
-          aria-label={`Consultar próxima edición de ${course.title}`}
+          aria-label={`Ver el programa de ${course.title}`}
         >
           <div class="relative h-64 shrink-0 overflow-hidden">
             <img
@@ -71,7 +60,7 @@ import { courses } from '../data/site';
             </div>
 
             <span class="mt-auto flex min-h-12 items-end justify-between gap-5 pt-10 font-semibold text-lime">
-              Consultar próxima edición
+              Ver el programa
               <ArrowUpRight class="h-5 w-5 transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1" />
             </span>
           </div>

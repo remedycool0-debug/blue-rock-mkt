@@ -192,27 +192,36 @@ export const testimonials: Testimonial[] = [
 
 export const courses: Course[] = [
   {
+    slug: 'estrategia-marketing-b2b',
     title: 'Estrategia de marketing B2B',
     description: 'Aprende a convertir objetivos comerciales en prioridades, mensajes y un plan de crecimiento que tu equipo pueda ejecutar.',
     audience: 'Líderes de marketing y negocio',
     duration: '6 módulos',
     level: 'Intermedio',
     image: 'https://picsum.photos/seed/bluerock-course-strategy/1200/900',
+    outcomes: ['Diagnosticar el contexto comercial', 'Priorizar palancas de crecimiento', 'Construir un roadmap medible'],
+    project: 'Una hoja de ruta de 90 días conectada con un objetivo real de negocio.',
   },
   {
+    slug: 'posicionamiento-que-vende',
     title: 'Posicionamiento que ayuda a vender',
     description: 'Construye una posición clara y una arquitectura de mensajes útil para la web, campañas y conversaciones comerciales.',
     audience: 'Marketing, founders y ventas',
     duration: '5 módulos',
     level: 'Todos los niveles',
     image: 'https://picsum.photos/seed/bluerock-course-positioning/1200/900',
+    outcomes: ['Definir una posición defendible', 'Ordenar mensajes por audiencia', 'Traducir estrategia en activos comerciales'],
+    project: 'Una arquitectura de mensajes lista para web, campañas y conversaciones de venta.',
   },
   {
+    slug: 'performance-automatizacion-b2b',
     title: 'Performance y automatización B2B',
     description: 'Conecta adquisición, señales de intención y seguimiento para diseñar una operación de demanda medible y escalable.',
     audience: 'Equipos de growth y demanda',
     duration: '8 módulos',
     level: 'Avanzado',
     image: 'https://picsum.photos/seed/bluerock-course-systems/1200/900',
+    outcomes: ['Diseñar señales de intención', 'Conectar adquisición y seguimiento', 'Medir avance más allá del lead'],
+    project: 'Un sistema de demanda con criterios de calificación, nurturing y medición comercial.',
   },
 ];

@@ -45,12 +45,15 @@ export interface Testimonial {
 }
 
 export interface Course {
+  slug: string;
   title: string;
   description: string;
   audience: string;
   duration: string;
   level: string;
   image: string;
+  outcomes: string[];
+  project: string;
 }
 
 export interface DiagnosticFormData {
