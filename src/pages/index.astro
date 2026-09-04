@@ -1,0 +1,119 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Marquee from '../components/Marquee.astro';
+import Services from '../components/Services.astro';
+import Explore from '../components/Explore.astro';
+import Manifesto from '../components/Manifesto.astro';
+import Process from '../components/Process.astro';
+import Cases from '../components/Cases.astro';
+import Testimonials from '../components/Testimonials.astro';
+import InsightsPreview from '../components/InsightsPreview.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout
+  title="BlueRock Marketing | Crecimiento B2B con dirección"
+  description="Estrategia, contenido, performance y automatización para empresas B2B que quieren crecer con un sistema claro."
+>
+  <Header />
+  <main class="w-full max-w-full overflow-x-hidden">
+    <Hero />
+    <Marquee />
+    <Services />
+    <Explore />
+    <Manifesto />
+    <Process />
+    <Cases />
+    <Testimonials />
+    <InsightsPreview />
+    <Contact />
+  </main>
+  <Footer />
+</BaseLayout>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const media = gsap.matchMedia();
+
+  media.add('(prefers-reduced-motion: no-preference)', () => {
+    const heroTimeline = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    heroTimeline
+      .from('.hero-image', { scale: 1.12, duration: 1.8 })
+      .from('.hero-kicker', { opacity: 0, y: 18, duration: 0.7 }, 0.25)
+      .from('.hero-title > span', { opacity: 0, y: 50, stagger: 0.12, duration: 1.05 }, 0.35)
+      .from('.hero-copy', { opacity: 0, y: 20, duration: 0.7 }, 0.7)
+      .from('.hero-actions > a', { opacity: 0, y: 16, stagger: 0.1, duration: 0.65 }, 0.85);
+
+    const words = gsap.utils.toArray<HTMLElement>('.manifesto-word');
+    gsap.set(words, { opacity: 0.1 });
+    gsap.to(words, {
+      opacity: 1,
+      stagger: 0.08,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.manifesto-copy',
+        start: 'top 78%',
+        end: 'bottom 48%',
+        scrub: 1,
+      },
+    });
+
+    gsap.utils.toArray<HTMLElement>('.service-card, .case-card').forEach((card) => {
+      gsap.from(card, {
+        opacity: 0,
+        y: 50,
+        duration: 0.9,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 86%',
+          once: true,
+        },
+      });
+    });
+  });
+
+  media.add('(min-width: 1024px) and (prefers-reduced-motion: no-preference)', () => {
+    ScrollTrigger.create({
+      trigger: '.process-grid',
+      start: 'top 15%',
+      end: 'bottom 80%',
+      pin: '.process-copy',
+      pinSpacing: false,
+    });
+
+    gsap.utils.toArray<HTMLElement>('.process-step').forEach((step) => {
+      gsap.from(step, {
+        opacity: 0.25,
+        y: 70,
+        scrollTrigger: {
+          trigger: step,
+          start: 'top 88%',
+          end: 'top 54%',
+          scrub: 1,
+        },
+      });
+    });
+  });
+
+  window.addEventListener(
+    'load',
+    () => {
+      ScrollTrigger.refresh();
+      const targetId = window.location.hash;
+      if (targetId) {
+        window.requestAnimationFrame(() => {
+          document.querySelector(targetId)?.scrollIntoView({ block: 'start' });
+        });
+      }
+    },
+    { once: true },
+  );
+</script>

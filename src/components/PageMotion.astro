@@ -1,0 +1,45 @@
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+  const media = gsap.matchMedia();
+
+  media.add('(prefers-reduced-motion: no-preference)', () => {
+    gsap.utils.toArray<HTMLElement>('.reveal-image').forEach((image) => {
+      gsap.fromTo(
+        image,
+        { scale: 0.88, opacity: 0.45 },
+        {
+          scale: 1,
+          opacity: 0.9,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: image,
+            start: 'top 92%',
+            end: 'center 46%',
+            scrub: 1,
+          },
+        },
+      );
+    });
+
+    gsap.utils.toArray<HTMLElement>('.stack-card').forEach((card, index) => {
+      gsap.from(card, {
+        y: 70,
+        opacity: 0,
+        scale: 0.96,
+        duration: 0.9,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 88%',
+          once: true,
+        },
+        delay: Math.min(index * 0.05, 0.15),
+      });
+    });
+  });
+
+  window.addEventListener('load', () => ScrollTrigger.refresh(), { once: true });
+</script>

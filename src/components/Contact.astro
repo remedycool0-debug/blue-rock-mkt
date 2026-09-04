@@ -1,0 +1,182 @@
+---
+import { ArrowUpRight, LockKeyhole } from '@lucide/astro';
+---
+
+<section id="contacto" class="noise relative overflow-hidden bg-ink py-24 text-white md:py-32">
+  <div class="absolute -right-40 top-24 h-[34rem] w-[34rem] rounded-full bg-electric/25 blur-[140px]"></div>
+  <div class="container-shell relative z-10 grid gap-16 lg:grid-cols-12 lg:gap-12">
+    <div class="lg:col-span-5">
+      <h2 class="balance max-w-3xl text-[clamp(3.5rem,6.8vw,7rem)] font-[620] leading-[0.9] tracking-[-0.07em]">
+        Hagamos visible tu próxima oportunidad.
+      </h2>
+      <p class="mt-8 max-w-lg text-lg leading-relaxed text-white/62">
+        Cuéntanos dónde está el negocio y qué lo está frenando. Esta demo te mostrará cómo funcionará la solicitud, sin enviar ni almacenar datos.
+      </p>
+      <div class="mt-10 flex max-w-md items-start gap-3 border-t border-white/15 pt-6 text-sm leading-relaxed text-white/48">
+        <LockKeyhole class="mt-0.5 h-4 w-4 shrink-0 text-lime" />
+        La versión actual es una simulación local. No existe conexión con servidores, correo o bases de datos.
+      </div>
+    </div>
+
+    <form class="diagnostic-form rounded-[2rem] bg-mineral p-5 text-ink sm:p-8 lg:col-span-7 lg:p-10" novalidate>
+      <div class="grid gap-5 sm:grid-cols-2">
+        <label class="field">
+          <span>Nombre completo</span>
+          <input name="name" type="text" autocomplete="name" required minlength="2" placeholder="Tu nombre" />
+        </label>
+        <label class="field">
+          <span>Empresa</span>
+          <input name="company" type="text" autocomplete="organization" required minlength="2" placeholder="Nombre de la empresa" />
+        </label>
+        <label class="field">
+          <span>Correo corporativo</span>
+          <input name="email" type="email" autocomplete="email" required placeholder="nombre@empresa.com" />
+        </label>
+        <label class="field">
+          <span>Sitio web <small>Opcional</small></span>
+          <input name="website" type="url" autocomplete="url" placeholder="https://empresa.com" />
+        </label>
+        <label class="field">
+          <span>Objetivo principal</span>
+          <select name="objective" required>
+            <option value="">Seleccionar objetivo</option>
+            <option>Generar demanda</option>
+            <option>Mejorar posicionamiento</option>
+            <option>Optimizar conversión</option>
+            <option>Alinear marketing y ventas</option>
+          </select>
+        </label>
+        <label class="field">
+          <span>Inversión mensual</span>
+          <select name="budget" required>
+            <option value="">Seleccionar rango</option>
+            <option>Menos de US$ 2,000</option>
+            <option>US$ 2,000 a US$ 5,000</option>
+            <option>US$ 5,000 a US$ 10,000</option>
+            <option>Más de US$ 10,000</option>
+          </select>
+        </label>
+        <label class="field sm:col-span-2">
+          <span>¿Qué está frenando el crecimiento?</span>
+          <textarea name="challenge" required minlength="20" rows="5" placeholder="Describe brevemente el reto comercial o de marketing que quieres resolver."></textarea>
+        </label>
+      </div>
+
+      <div class="mt-7 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <p class="max-w-sm text-xs leading-relaxed text-ink/48">
+          Al continuar, solo activas una demostración en este navegador.
+        </p>
+        <button class="submit-button button-primary group shrink-0 !bg-ink !text-white" type="submit">
+          <span>Simular diagnóstico</span>
+          <ArrowUpRight class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+        </button>
+      </div>
+
+      <p class="form-status mt-5 min-h-6 rounded-xl text-sm font-medium" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+
+<script>
+  import { simulateDiagnosticSubmission } from '../lib/diagnostic';
+  import type { DiagnosticFormData } from '../types';
+
+  const form = document.querySelector<HTMLFormElement>('.diagnostic-form');
+  const submitButton = form?.querySelector<HTMLButtonElement>('.submit-button');
+  const buttonLabel = submitButton?.querySelector<HTMLSpanElement>('span');
+  const formStatus = form?.querySelector<HTMLElement>('.form-status');
+
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    formStatus?.classList.remove('bg-red-100', 'p-3', 'text-red-800', 'bg-lime/35', 'text-ink');
+
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      if (formStatus) {
+        formStatus.textContent = 'Revisa los campos marcados antes de continuar.';
+        formStatus.classList.add('bg-red-100', 'p-3', 'text-red-800');
+      }
+      return;
+    }
+
+    const data = new FormData(form);
+    const payload: DiagnosticFormData = {
+      name: String(data.get('name') ?? ''),
+      company: String(data.get('company') ?? ''),
+      email: String(data.get('email') ?? ''),
+      website: String(data.get('website') ?? '') || undefined,
+      objective: String(data.get('objective') ?? ''),
+      budget: String(data.get('budget') ?? ''),
+      challenge: String(data.get('challenge') ?? ''),
+    };
+
+    if (submitButton) submitButton.disabled = true;
+    if (buttonLabel) buttonLabel.textContent = 'Simulando envío';
+    if (formStatus) formStatus.textContent = 'Procesando la simulación local…';
+
+    await simulateDiagnosticSubmission(payload);
+
+    form.reset();
+    if (submitButton) submitButton.disabled = false;
+    if (buttonLabel) buttonLabel.textContent = 'Simular diagnóstico';
+    if (formStatus) {
+      formStatus.textContent = 'Simulación completada. Tus datos no se enviaron ni almacenaron.';
+      formStatus.classList.add('bg-lime/35', 'p-3', 'text-ink');
+    }
+  });
+</script>
+
+<style>
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    font-size: 0.83rem;
+    font-weight: 630;
+  }
+
+  .field small {
+    margin-left: 0.35rem;
+    color: rgb(7 24 45 / 0.42);
+    font-size: 0.7rem;
+    font-weight: 500;
+  }
+
+  .field input,
+  .field select,
+  .field textarea {
+    width: 100%;
+    border: 1px solid rgb(7 24 45 / 0.14);
+    border-radius: 1rem;
+    background: white;
+    padding: 0.95rem 1rem;
+    color: #07182d;
+    font: inherit;
+    font-weight: 480;
+    transition: border-color 200ms ease, box-shadow 200ms ease;
+  }
+
+  .field textarea {
+    min-height: 9rem;
+    resize: vertical;
+  }
+
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    border-color: #2864ff;
+    box-shadow: 0 0 0 4px rgb(40 100 255 / 0.1);
+    outline: none;
+  }
+
+  .field input::placeholder,
+  .field textarea::placeholder {
+    color: rgb(7 24 45 / 0.35);
+  }
+
+  .submit-button:disabled {
+    cursor: wait;
+    opacity: 0.65;
+    transform: none;
+  }
+</style>

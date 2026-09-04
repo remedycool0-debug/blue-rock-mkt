@@ -1,0 +1,146 @@
+---
+import Logo from './Logo.astro';
+
+const currentPath = Astro.url.pathname;
+const links = [
+  { label: 'Servicios', href: '/servicios' },
+  { label: 'Estudio', href: '/estudio' },
+  { label: 'Casos', href: '/casos' },
+  { label: 'Insights', href: '/insights' },
+];
+---
+
+<header class="fixed inset-x-0 top-0 z-50">
+  <nav
+    class="flex w-full items-center justify-between border-b border-white/14 bg-ink/75 px-4 py-3 text-white shadow-[0_16px_60px_rgba(0,0,0,.22)] backdrop-blur-xl sm:px-6"
+    aria-label="Navegación principal"
+  >
+    <a href="/" class="rounded-full text-white" aria-label="BlueRock, volver al inicio">
+      <Logo />
+    </a>
+
+    <div class="hidden items-center gap-7 text-sm font-medium text-white/72 md:flex">
+      {links.map((link) => (
+        <a
+          class:list={['transition-colors hover:text-white', currentPath.startsWith(link.href) ? 'text-white' : 'text-white/72']}
+          href={link.href}
+          aria-current={currentPath.startsWith(link.href) ? 'page' : undefined}
+        >
+          {link.label}
+        </a>
+      ))}
+    </div>
+
+    <a class="desktop-nav-cta button-primary !min-h-11 !px-5" href="/contacto">
+      Solicitar diagnóstico
+    </a>
+
+    <button
+      class="menu-toggle grid h-11 w-11 place-items-center rounded-full border border-white/20 md:hidden"
+      type="button"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      aria-label="Abrir menú"
+    >
+      <span class="hamburger" aria-hidden="true"></span>
+    </button>
+  </nav>
+
+  <div
+    id="mobile-menu"
+    class="pointer-events-none mt-2 w-full translate-y-[-8px] rounded-[1.75rem] border border-white/14 bg-ink/95 p-3 text-white opacity-0 shadow-2xl backdrop-blur-xl transition duration-300 md:hidden"
+    hidden
+  >
+    <div class="flex flex-col">
+      {links.map((link) => (
+        <a class="rounded-2xl px-4 py-4 text-lg hover:bg-white/8" href={link.href}>{link.label}</a>
+      ))}
+      <a class="button-primary mt-2" href="/contacto">Solicitar diagnóstico</a>
+    </div>
+  </div>
+</header>
+
+<script>
+  const menuButton = document.querySelector<HTMLButtonElement>('.menu-toggle');
+  const mobileMenu = document.querySelector<HTMLElement>('#mobile-menu');
+
+  function setMenu(open: boolean) {
+    if (!menuButton || !mobileMenu) return;
+    menuButton.setAttribute('aria-expanded', String(open));
+    menuButton.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+    menuButton.classList.toggle('is-open', open);
+
+    if (open) {
+      mobileMenu.hidden = false;
+      requestAnimationFrame(() => {
+        mobileMenu.classList.remove('pointer-events-none', 'translate-y-[-8px]', 'opacity-0');
+      });
+    } else {
+      mobileMenu.classList.add('pointer-events-none', 'translate-y-[-8px]', 'opacity-0');
+      window.setTimeout(() => {
+        mobileMenu.hidden = true;
+      }, 300);
+    }
+  }
+
+  menuButton?.addEventListener('click', () => {
+    setMenu(menuButton.getAttribute('aria-expanded') !== 'true');
+  });
+
+  mobileMenu?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => setMenu(false));
+  });
+</script>
+
+<style>
+  .desktop-nav-cta {
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    .desktop-nav-cta {
+      display: inline-flex;
+    }
+  }
+
+  .hamburger,
+  .hamburger::before,
+  .hamburger::after {
+    display: block;
+    width: 18px;
+    height: 1.5px;
+    background: white;
+    transition: transform 250ms ease, opacity 250ms ease;
+  }
+
+  .hamburger {
+    position: relative;
+  }
+
+  .hamburger::before,
+  .hamburger::after {
+    position: absolute;
+    left: 0;
+    content: '';
+  }
+
+  .hamburger::before {
+    transform: translateY(-6px);
+  }
+
+  .hamburger::after {
+    transform: translateY(6px);
+  }
+
+  .is-open .hamburger {
+    background: transparent;
+  }
+
+  .is-open .hamburger::before {
+    transform: rotate(45deg);
+  }
+
+  .is-open .hamburger::after {
+    transform: rotate(-45deg);
+  }
+</style>

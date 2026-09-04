@@ -1,0 +1,79 @@
+---
+import { ArrowUpRight } from '@lucide/astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import InternalHero from '../../components/InternalHero.astro';
+import Marquee from '../../components/Marquee.astro';
+import PageCTA from '../../components/PageCTA.astro';
+import PageMotion from '../../components/PageMotion.astro';
+import { services } from '../../data/site';
+---
+
+<BaseLayout title="Servicios | BlueRock Marketing" description="Estrategia, posicionamiento, performance y automatización comercial para empresas B2B.">
+  <Header />
+  <main class="w-full max-w-full overflow-x-hidden">
+    <InternalHero
+      context="Capacidades BlueRock"
+      title="Cuatro capacidades. Un solo sistema de crecimiento."
+      intro="Combinamos estrategia, contenido, demanda y operación comercial según el momento real de tu empresa."
+      image="https://picsum.photos/seed/bluerock-services-hero/1920/1080"
+    />
+    <Marquee />
+
+    <section id="contenido" class="bg-mineral py-24 md:py-32">
+      <div class="container-shell">
+        <div class="mb-16 grid gap-8 md:grid-cols-12 md:items-end md:mb-24">
+          <h2 class="balance text-[clamp(3.1rem,6vw,6.4rem)] font-[630] leading-[0.92] tracking-[-0.065em] md:col-span-8">
+            Entra por el reto. Sal con una dirección clara.
+          </h2>
+          <p class="max-w-md text-lg leading-relaxed text-ink/58 md:col-span-4">
+            Cada capacidad puede resolver un problema concreto o integrarse en un sistema más amplio.
+          </p>
+        </div>
+
+        <div class="horizontal-accordion flex flex-col gap-3 lg:h-[43rem] lg:flex-row">
+          {services.map((service) => (
+            <a href={`/servicios/${service.slug}`} class="group relative min-h-[28rem] flex-1 overflow-hidden rounded-[2rem] bg-ink text-white transition-[flex] duration-700 ease-out lg:hover:flex-[2]">
+              {service.image ? (
+                <img class="reveal-image absolute inset-0 h-full w-full object-cover opacity-60 grayscale contrast-125 transition-transform duration-700 group-hover:scale-105" src={service.image} alt={`Dirección visual para ${service.title}`} width="1400" height="900" loading="lazy" />
+              ) : (
+                <div class="absolute inset-0 bg-[radial-gradient(circle_at_70%_20%,rgba(40,100,255,.6),transparent_38%),#07182d]"></div>
+              )}
+              <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/35 to-transparent"></div>
+              <div class="absolute inset-x-0 bottom-0 z-10 p-6 sm:p-8">
+                <div class="mb-7 flex items-center justify-between gap-4">
+                  <span class="text-sm font-semibold text-lime">{service.outcome}</span>
+                  <ArrowUpRight class="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                </div>
+                <h2 class="text-[clamp(2.1rem,3vw,3.6rem)] font-[620] leading-none tracking-[-0.055em]">{service.title}</h2>
+                <p class="mt-5 max-w-md leading-relaxed text-white/62">{service.description}</p>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="noise relative overflow-hidden bg-ink py-24 text-white md:py-32">
+      <div class="absolute left-1/2 top-0 h-[32rem] w-[42rem] -translate-x-1/2 rounded-full bg-electric/18 blur-[130px]"></div>
+      <div class="container-shell relative z-10 grid gap-16 lg:grid-cols-12">
+        <h2 class="balance max-w-4xl text-[clamp(3.2rem,6vw,6.5rem)] font-[620] leading-[0.92] tracking-[-0.065em] lg:col-span-7">
+          No vendemos piezas sueltas. Diseñamos cómo trabajan juntas.
+        </h2>
+        <div class="grid grid-flow-dense gap-3 sm:grid-cols-2 lg:col-span-5">
+          {['Diagnóstico antes de ejecución', 'Prioridades ligadas a negocio', 'Aprendizaje visible', 'Operación preparada para escalar'].map((item) => (
+            <div class="stack-card min-h-48 rounded-[1.6rem] border border-white/14 bg-white/6 p-6 backdrop-blur-sm">
+              <span class="mb-10 block h-2.5 w-2.5 rotate-45 bg-lime"></span>
+              <p class="text-xl font-semibold leading-tight">{item}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <PageCTA />
+  </main>
+  <Footer />
+  <PageMotion />
+</BaseLayout>

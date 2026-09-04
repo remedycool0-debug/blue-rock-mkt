@@ -1,0 +1,46 @@
+---
+import { ArrowUpRight } from '@lucide/astro';
+import { siteConfig } from '../data/site';
+import Logo from './Logo.astro';
+---
+
+<footer class="bg-ink pb-8 text-white">
+  <div class="container-shell border-t border-white/14 pt-12">
+    <div class="grid gap-14 md:grid-cols-12">
+      <div class="md:col-span-5">
+        <a href="/" class="inline-flex text-white" aria-label="BlueRock, volver al inicio">
+          <Logo />
+        </a>
+        <p class="mt-5 max-w-sm text-sm leading-relaxed text-white/48">
+          Marketing B2B con dirección, sistema y una conexión real con el crecimiento comercial.
+        </p>
+      </div>
+      <div class="grid grid-cols-2 gap-10 md:col-span-4">
+        <div>
+          <p class="mb-5 text-xs font-semibold tracking-[0.14em] text-white/35 uppercase">Navegar</p>
+          <div class="flex flex-col gap-3 text-sm text-white/68">
+            <a class="hover:text-white" href="/servicios">Servicios</a>
+            <a class="hover:text-white" href="/estudio">Estudio</a>
+            <a class="hover:text-white" href="/casos">Casos</a>
+            <a class="hover:text-white" href="/insights">Insights</a>
+          </div>
+        </div>
+        <div>
+          <p class="mb-5 text-xs font-semibold tracking-[0.14em] text-white/35 uppercase">Social</p>
+          <div class="flex flex-col gap-3 text-sm text-white/68">
+            <a class="inline-flex items-center gap-1 hover:text-white" href={siteConfig.linkedin}>LinkedIn <ArrowUpRight class="h-3 w-3" /></a>
+            <a class="inline-flex items-center gap-1 hover:text-white" href={siteConfig.instagram}>Instagram <ArrowUpRight class="h-3 w-3" /></a>
+          </div>
+        </div>
+      </div>
+      <div class="md:col-span-3 md:text-right">
+        <p class="mb-5 text-xs font-semibold tracking-[0.14em] text-white/35 uppercase">Contacto</p>
+        <a class="text-lg font-medium text-white hover:text-lime" href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
+      </div>
+    </div>
+    <div class="mt-20 flex flex-col justify-between gap-3 border-t border-white/10 pt-6 text-xs text-white/35 sm:flex-row">
+      <p>© {new Date().getFullYear()} BlueRock Marketing.</p>
+      <p>Versión conceptual. Identidad provisional.</p>
+    </div>
+  </div>
+</footer>

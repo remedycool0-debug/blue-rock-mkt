@@ -1,0 +1,53 @@
+---
+import { ArrowUpRight } from '@lucide/astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import InternalHero from '../../components/InternalHero.astro';
+import PageCTA from '../../components/PageCTA.astro';
+import PageMotion from '../../components/PageMotion.astro';
+import { demoCases } from '../../data/site';
+---
+
+<BaseLayout title="Casos conceptuales | BlueRock Marketing" description="Escenarios conceptuales que muestran cómo BlueRock aborda retos de crecimiento B2B.">
+  <Header />
+  <main class="w-full max-w-full overflow-x-hidden">
+    <InternalHero
+      context="Casos conceptuales"
+      title="Problemas complejos. Decisiones que ordenan el camino."
+      intro="Estos escenarios demostrativos muestran cómo conectamos posicionamiento, demanda y operación comercial. No representan clientes ni resultados reales."
+      image="https://picsum.photos/seed/bluerock-cases-hero/1920/1080"
+    />
+
+    <section id="contenido" class="bg-mineral py-24 md:py-32">
+      <div class="container-shell space-y-5">
+        {demoCases.map((item, index) => (
+          <a href={`/casos/${item.slug}`} class="group stack-card grid min-h-[42rem] overflow-hidden rounded-[2.2rem] bg-ink text-white lg:grid-cols-12">
+            <div class:list={['relative min-h-[24rem] overflow-hidden lg:col-span-7', index % 2 === 1 && 'lg:order-2']}>
+              <img class="reveal-image h-full w-full object-cover grayscale contrast-125 transition-transform duration-700 ease-out group-hover:scale-105" src={item.image} alt={`Caso conceptual de ${item.sector}`} width="1400" height="1000" loading="lazy" />
+              <div class="absolute inset-0 bg-gradient-to-t from-ink/55 to-transparent"></div>
+            </div>
+            <div class="flex flex-col justify-between p-7 sm:p-11 lg:col-span-5">
+              <div class="flex items-start justify-between gap-6">
+                <div>
+                  <p class="text-xs font-semibold tracking-[0.14em] text-lime uppercase">Contenido demostrativo</p>
+                  <p class="mt-3 text-sm text-white/50">{item.sector}</p>
+                </div>
+                <ArrowUpRight class="h-6 w-6 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+              </div>
+              <div class="mt-16">
+                <p class="mb-6 text-lg font-semibold text-lime">{item.metric}</p>
+                <h2 class="text-[clamp(2.5rem,4.5vw,5rem)] font-[620] leading-[0.98] tracking-[-0.06em]">{item.title}</h2>
+                <p class="mt-6 max-w-xl leading-relaxed text-white/60">{item.description}</p>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <PageCTA title="Tu reto no tiene que parecerse a estos para que podamos entenderlo." />
+  </main>
+  <Footer />
+  <PageMotion />
+</BaseLayout>

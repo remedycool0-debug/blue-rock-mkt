@@ -1,0 +1,26 @@
+---
+const disciplines = ['Estrategia', 'Posicionamiento', 'Contenido', 'Performance', 'Automatización'];
+---
+
+<div class="overflow-hidden border-y border-ink/12 bg-mineral py-6" aria-label="Disciplinas de BlueRock">
+  <div class="marquee-track flex w-max items-center motion-safe:animate-[marquee_30s_linear_infinite]">
+    {[0, 1].map((row) => (
+      <div class="flex shrink-0 items-center" aria-hidden={row === 1 ? 'true' : undefined}>
+        {disciplines.map((discipline) => (
+          <span class="flex items-center gap-8 px-5 text-[clamp(1.5rem,3vw,3rem)] font-[570] tracking-[-0.045em] text-ink sm:px-8">
+            {discipline}
+            <span class="h-2.5 w-2.5 rotate-45 bg-electric"></span>
+          </span>
+        ))}
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+</style>

@@ -1,0 +1,71 @@
+---
+import { ChartNoAxesCombined, Compass, LayoutPanelTop, Workflow } from '@lucide/astro';
+import { services } from '../data/site';
+
+const icons = {
+  compass: Compass,
+  layers: LayoutPanelTop,
+  chart: ChartNoAxesCombined,
+  workflow: Workflow,
+};
+---
+
+<section id="servicios" class="relative bg-mineral pb-12 pt-24 md:pb-16 md:pt-32">
+  <div class="container-shell">
+    <div class="mb-16 grid items-end gap-7 md:grid-cols-12 md:mb-24">
+      <h2 class="balance text-[clamp(3rem,6vw,6.2rem)] font-[620] leading-[0.94] tracking-[-0.065em] md:col-span-8">
+        Un sistema completo para crecer sin improvisar.
+      </h2>
+      <p class="max-w-md text-base leading-relaxed text-ink/62 md:col-span-4 md:justify-self-end md:text-lg">
+        Cuatro capacidades conectadas por una sola estrategia comercial. Menos acciones aisladas, más avance visible.
+      </p>
+    </div>
+
+    <div class="grid grid-flow-dense gap-3 md:grid-cols-12 md:grid-rows-2">
+      {services.map((service, index) => {
+        const Icon = icons[service.icon];
+        return (
+          <a
+            href={`/servicios/${service.slug}`}
+            class:list={[
+              'service-card group relative min-h-[26rem] overflow-hidden rounded-[2rem] border border-ink/10 p-6 sm:p-8 md:min-h-[29rem]',
+              service.className,
+              service.image ? 'text-white' : index === 1 ? 'bg-white text-ink' : 'bg-electric text-white',
+            ]}
+          >
+            {service.image && (
+              <>
+                <img
+                  class="absolute inset-0 h-full w-full object-cover opacity-65 grayscale contrast-125 transition-transform duration-700 ease-out group-hover:scale-105"
+                  src={service.image}
+                  alt="Composición editorial vinculada a estrategia y crecimiento"
+                  width="1400"
+                  height="900"
+                  loading="lazy"
+                />
+                <div class="absolute inset-0 bg-gradient-to-b from-ink/25 via-ink/35 to-ink/95"></div>
+              </>
+            )}
+
+            <div class="relative z-10 flex h-full min-h-[22rem] flex-col justify-between">
+              <div class:list={['grid h-12 w-12 place-items-center rounded-full', service.image || index === 2 ? 'bg-white/12 text-white' : 'bg-ink text-white']}>
+                <Icon class="h-5 w-5" stroke-width={1.8} />
+              </div>
+              <div>
+                <p class:list={['mb-5 text-sm font-medium', service.image || index === 2 ? 'text-white/60' : 'text-ink/48']}>
+                  {service.outcome}
+                </p>
+                <h3 class="max-w-xl text-[clamp(2rem,4vw,4.2rem)] font-[610] leading-[0.98] tracking-[-0.055em]">
+                  {service.title}
+                </h3>
+                <p class:list={['mt-5 max-w-lg text-base leading-relaxed', service.image || index === 2 ? 'text-white/70' : 'text-ink/62']}>
+                  {service.description}
+                </p>
+              </div>
+            </div>
+          </a>
+        );
+      })}
+    </div>
+  </div>
+</section>

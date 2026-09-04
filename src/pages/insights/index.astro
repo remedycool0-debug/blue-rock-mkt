@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import InternalHero from '../../components/InternalHero.astro';
+import InsightCard from '../../components/InsightCard.astro';
+import PageCTA from '../../components/PageCTA.astro';
+import PageMotion from '../../components/PageMotion.astro';
+import { insights } from '../../data/site';
+---
+
+<BaseLayout title="Insights | BlueRock Marketing" description="Ideas para decidir mejor sobre crecimiento, posicionamiento y performance B2B.">
+  <Header />
+  <main class="w-full max-w-full overflow-x-hidden">
+    <InternalHero
+      context="Ideas para decidir mejor"
+      title="Pensamiento útil para equipos que quieren avanzar."
+      intro="Lecturas sobre las decisiones que conectan posicionamiento, demanda y crecimiento comercial."
+      image="https://picsum.photos/seed/bluerock-insights-hero/1920/1080"
+    />
+
+    <section id="contenido" class="bg-mineral py-24 md:py-32">
+      <div class="container-shell">
+        <InsightCard article={insights[0]} featured />
+        <div class="mt-5 grid gap-5 md:grid-cols-2">
+          {insights.slice(1).map((article) => <InsightCard article={article} />)}
+        </div>
+      </div>
+    </section>
+
+    <PageCTA title="¿Hay una decisión de crecimiento que todavía no logras ordenar?" />
+  </main>
+  <Footer />
+  <PageMotion />
+</BaseLayout>

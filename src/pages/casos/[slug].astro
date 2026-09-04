@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import InternalHero from '../../components/InternalHero.astro';
+import PageCTA from '../../components/PageCTA.astro';
+import PageMotion from '../../components/PageMotion.astro';
+import { demoCases } from '../../data/site';
+import type { DemoCase } from '../../types';
+
+export function getStaticPaths() {
+  return demoCases.map((item) => ({ params: { slug: item.slug }, props: { item } }));
+}
+
+interface Props {
+  item: DemoCase;
+}
+
+const { item } = Astro.props;
+---
+
+<BaseLayout title={`${item.sector} | Caso conceptual BlueRock`} description={item.description}>
+  <Header />
+  <main class="w-full max-w-full overflow-x-hidden">
+    <InternalHero context={`Caso conceptual · ${item.sector}`} title={item.title} intro={item.description} image={item.image} />
+
+    <section id="contenido" class="bg-mineral py-24 md:py-32">
+      <div class="container-shell grid gap-16 lg:grid-cols-12">
+        <div class="lg:col-span-4">
+          <p class="text-sm font-semibold text-electric">El punto de partida</p>
+          <h2 class="balance mt-5 text-[clamp(3rem,5vw,5.5rem)] font-[620] leading-[0.94] tracking-[-0.06em]">Un reto que pedía más claridad, no más ruido.</h2>
+        </div>
+        <div class="lg:col-span-7 lg:col-start-6">
+          <p class="balance text-[clamp(2rem,3.4vw,3.7rem)] font-[520] leading-[1.08] tracking-[-0.045em]">{item.challenge}</p>
+          <p class="mt-10 border-l-2 border-electric pl-6 text-sm leading-relaxed text-ink/50">Este caso es una simulación editorial. La empresa, el proceso y la métrica son demostrativos.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="noise relative overflow-hidden bg-ink py-24 text-white md:py-32">
+      <div class="container-shell grid gap-16 lg:grid-cols-12">
+        <h2 class="balance text-[clamp(3rem,5.5vw,5.8rem)] font-[620] leading-[0.94] tracking-[-0.06em] lg:col-span-5">Las decisiones que moverían el proyecto.</h2>
+        <div class="space-y-4 lg:col-span-7">
+          {item.moves.map((move, index) => (
+            <article class="stack-card flex min-h-[17rem] flex-col justify-between rounded-[2rem] border border-white/12 bg-white/6 p-7 sm:p-9">
+              <span class="grid h-11 w-11 place-items-center rounded-full bg-lime font-semibold text-ink">{index + 1}</span>
+              <h3 class="mt-12 text-[clamp(2rem,4vw,4.2rem)] font-[610] leading-none tracking-[-0.055em]">{move}</h3>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-[#dce4e4] py-24 md:py-32">
+      <div class="container-shell">
+        <p class="text-sm font-semibold text-electric">Resultado conceptual</p>
+        <p class="balance mt-8 max-w-6xl text-[clamp(3.2rem,6vw,6.7rem)] font-[590] leading-[1] tracking-[-0.065em]">{item.conclusion}</p>
+        <p class="mt-12 text-2xl font-semibold text-rock">{item.metric}</p>
+      </div>
+    </section>
+
+    <PageCTA />
+  </main>
+  <Footer />
+  <PageMotion />
+</BaseLayout>

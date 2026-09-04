@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import InternalHero from '../components/InternalHero.astro';
+import Contact from '../components/Contact.astro';
+import PageMotion from '../components/PageMotion.astro';
+---
+
+<BaseLayout title="Contacto | BlueRock Marketing" description="Cuéntanos qué quieres mover y simula una solicitud de diagnóstico con BlueRock.">
+  <Header />
+  <main class="w-full max-w-full overflow-x-hidden">
+    <InternalHero
+      context="Conversemos"
+      title="Una buena conversación puede ordenar el camino."
+      intro="Comparte el reto, el momento del negocio y la decisión que necesitas tomar. La versión actual simula el contacto sin enviar datos."
+      image="https://picsum.photos/seed/bluerock-contact-hero/1920/1080"
+    />
+    <div id="contenido">
+      <Contact />
+    </div>
+  </main>
+  <Footer />
+  <PageMotion />
+</BaseLayout>

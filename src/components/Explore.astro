@@ -1,0 +1,48 @@
+---
+import { ArrowUpRight } from '@lucide/astro';
+
+const destinations = [
+  {
+    title: 'Cómo pensamos',
+    copy: 'Conoce el criterio detrás de cada decisión y la forma en que conectamos marketing con negocio.',
+    href: '/estudio',
+    image: 'https://picsum.photos/seed/bluerock-studio-preview/1200/1000',
+  },
+  {
+    title: 'Casos conceptuales',
+    copy: 'Explora cómo abordaríamos retos de posicionamiento, demanda y automatización en distintos sectores.',
+    href: '/casos',
+    image: 'https://picsum.photos/seed/bluerock-cases-preview/1200/1000',
+  },
+  {
+    title: 'Ideas para decidir mejor',
+    copy: 'Lecturas breves sobre crecimiento B2B, contenido, performance y sistemas comerciales.',
+    href: '/insights',
+    image: 'https://picsum.photos/seed/bluerock-insights-preview/1200/1000',
+  },
+];
+---
+
+<section class="bg-mineral pb-24 pt-12 md:pb-32 md:pt-16">
+  <div class="container-shell">
+    <h2 class="balance mb-16 max-w-5xl text-[clamp(3.2rem,6vw,6.5rem)] font-[620] leading-[0.92] tracking-[-0.065em] md:mb-24">
+      BlueRock tiene mucho más para explorar.
+    </h2>
+    <div class="horizontal-accordion flex flex-col gap-3 lg:h-[42rem] lg:flex-row">
+      {destinations.map((item) => (
+        <a href={item.href} class="accordion-panel group relative min-h-[28rem] flex-1 overflow-hidden rounded-[2rem] text-white transition-[flex] duration-700 ease-out lg:hover:flex-[1.7]">
+          <img class="absolute inset-0 h-full w-full object-cover opacity-70 grayscale contrast-125 transition-transform duration-700 group-hover:scale-105" src={item.image} alt="Composición editorial de BlueRock" width="1200" height="1000" loading="lazy" />
+          <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/25 to-transparent"></div>
+          <div class="absolute inset-x-0 bottom-0 z-10 p-6 sm:p-9">
+            <div class="mb-6 flex items-center justify-between gap-6">
+              <span class="text-sm font-semibold text-lime">Explorar</span>
+              <ArrowUpRight class="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+            </div>
+            <h3 class="text-[clamp(2.4rem,4vw,4.6rem)] font-[610] leading-none tracking-[-0.06em]">{item.title}</h3>
+            <p class="mt-5 max-w-lg leading-relaxed text-white/62">{item.copy}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

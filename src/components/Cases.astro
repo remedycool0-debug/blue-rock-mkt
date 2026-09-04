@@ -1,0 +1,49 @@
+---
+import { ArrowUpRight } from '@lucide/astro';
+import { demoCases } from '../data/site';
+---
+
+<section id="casos" class="bg-mineral py-24 md:py-32">
+  <div class="container-shell">
+    <div class="mb-16 flex flex-col justify-between gap-8 md:mb-24 md:flex-row md:items-end">
+      <h2 class="balance max-w-4xl text-[clamp(3.2rem,6vw,6.5rem)] font-[620] leading-[0.92] tracking-[-0.065em]">
+        Así se vería el cambio.
+      </h2>
+      <p class="max-w-sm text-sm leading-relaxed text-ink/58">
+        Casos conceptuales creados para mostrar el enfoque. Las empresas, testimonios y métricas de esta sección son demostrativos.
+      </p>
+    </div>
+
+    <div class="space-y-5">
+      {demoCases.map((item, index) => (
+        <a href={`/casos/${item.slug}`} class="case-card group grid min-h-[38rem] overflow-hidden rounded-[2rem] bg-ink text-white lg:grid-cols-12">
+          <div class:list={['relative min-h-[21rem] overflow-hidden lg:col-span-7', index % 2 === 1 && 'lg:order-2']}>
+            <img
+              class="h-full w-full object-cover opacity-80 grayscale contrast-125 transition-transform duration-700 ease-out group-hover:scale-105"
+              src={item.image}
+              alt={`Imagen editorial para el caso conceptual de ${item.sector}`}
+              width="1400"
+              height="1000"
+              loading="lazy"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent lg:bg-gradient-to-r"></div>
+          </div>
+          <div class="flex flex-col justify-between p-6 sm:p-10 lg:col-span-5 lg:p-12">
+            <div class="flex items-start justify-between gap-6">
+              <div>
+                <p class="text-xs font-semibold tracking-[0.15em] text-lime uppercase">Contenido demostrativo</p>
+                <p class="mt-3 text-sm text-white/50">{item.sector}</p>
+              </div>
+              <ArrowUpRight class="h-7 w-7 text-white/45 transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1" />
+            </div>
+            <div class="mt-16">
+              <p class="mb-7 text-lg font-semibold text-lime">{item.metric}</p>
+              <h3 class="text-[clamp(2.3rem,4.2vw,4.8rem)] font-[590] leading-[0.98] tracking-[-0.055em]">{item.title}</h3>
+              <p class="mt-6 max-w-lg leading-relaxed text-white/62">{item.description}</p>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

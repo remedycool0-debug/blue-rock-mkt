@@ -1,0 +1,88 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import InternalHero from '../../components/InternalHero.astro';
+import PageCTA from '../../components/PageCTA.astro';
+import PageMotion from '../../components/PageMotion.astro';
+import { services } from '../../data/site';
+import type { Service } from '../../types';
+
+export function getStaticPaths() {
+  return services.map((service) => ({ params: { slug: service.slug }, props: { service } }));
+}
+
+interface Props {
+  service: Service;
+}
+
+const { service } = Astro.props;
+const heroImage = service.image ?? `https://picsum.photos/seed/bluerock-${service.slug}/1920/1080`;
+---
+
+<BaseLayout title={`${service.title} | BlueRock Marketing`} description={service.intro}>
+  <Header />
+  <main class="w-full max-w-full overflow-x-hidden">
+    <InternalHero context="Servicio BlueRock" title={service.title} intro={service.intro} image={heroImage} />
+
+    <section id="contenido" class="bg-mineral py-24 md:py-32">
+      <div class="container-shell">
+        <div class="grid gap-14 lg:grid-cols-12 lg:items-start">
+          <div class="lg:col-span-5 lg:sticky lg:top-32">
+            <h2 class="balance text-[clamp(3rem,5.5vw,5.8rem)] font-[630] leading-[0.94] tracking-[-0.06em]">Lo que esta capacidad pone en movimiento.</h2>
+            <p class="mt-7 max-w-md text-lg leading-relaxed text-ink/58">Cada frente se diseña desde el contexto de tu empresa, sin paquetes genéricos ni actividad por inercia.</p>
+          </div>
+          <div class="grid grid-flow-dense gap-3 sm:grid-cols-2 lg:col-span-7">
+            {service.capabilities.map((capability, index) => (
+              <article class:list={['stack-card flex min-h-[20rem] flex-col justify-between rounded-[2rem] p-7 sm:p-9', index === 0 || index === 3 ? 'bg-electric text-white' : 'border border-ink/10 bg-white text-ink']}>
+                <span class:list={['h-3 w-3 rotate-45', index === 0 || index === 3 ? 'bg-lime' : 'bg-electric']}></span>
+                <h3 class="text-[clamp(2rem,3.5vw,3.8rem)] font-[620] leading-none tracking-[-0.055em]">{capability}</h3>
+              </article>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-[#dce4e4] py-24 md:py-32">
+      <div class="container-shell grid gap-16 lg:grid-cols-12">
+        <div class="lg:col-span-4">
+          <h2 class="balance text-[clamp(3rem,5vw,5.4rem)] font-[620] leading-[0.94] tracking-[-0.06em]">Cómo lo llevamos de idea a sistema.</h2>
+        </div>
+        <div class="relative space-y-5 lg:col-span-8">
+          {service.process.map((step, index) => (
+            <article class="stack-card sticky min-h-[24rem] rounded-[2rem] border border-ink/10 bg-mineral p-7 shadow-[0_-20px_60px_rgba(7,24,45,.06)] sm:p-10" style={`top: ${7 + index * 1.5}rem`}>
+              <div class="flex h-full min-h-[19rem] flex-col justify-between">
+                <span class="grid h-12 w-12 place-items-center rounded-full bg-ink font-semibold text-white">{index + 1}</span>
+                <div>
+                  <h3 class="text-[clamp(2.4rem,5vw,5.3rem)] font-[620] leading-none tracking-[-0.06em]">{step.title}</h3>
+                  <p class="mt-6 max-w-2xl text-lg leading-relaxed text-ink/58">{step.description}</p>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="noise relative overflow-hidden bg-ink py-24 text-white md:py-32">
+      <div class="container-shell grid gap-14 lg:grid-cols-12">
+        <div class="lg:col-span-6">
+          <h2 class="balance text-[clamp(3.2rem,6vw,6.4rem)] font-[620] leading-[0.92] tracking-[-0.065em]">Entregables que tu equipo puede usar.</h2>
+        </div>
+        <div class="lg:col-span-6">
+          {service.deliverables.map((deliverable) => (
+            <div class="flex items-center justify-between gap-6 border-t border-white/15 py-6 text-xl font-semibold sm:text-2xl">
+              <span>{deliverable}</span>
+              <span class="h-2.5 w-2.5 rotate-45 bg-lime"></span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <PageCTA title={`Convirtamos ${service.title.toLowerCase()} en una ventaja real.`} />
+  </main>
+  <Footer />
+  <PageMotion />
+</BaseLayout>

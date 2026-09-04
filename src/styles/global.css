@@ -1,0 +1,152 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Cabinet Grotesk Variable", "Cabinet Grotesk", "Geist Variable", sans-serif;
+  --color-ink: #07182d;
+  --color-rock: #143b68;
+  --color-electric: #2864ff;
+  --color-mineral: #eef2ed;
+  --color-lime: #d8ff3e;
+  --color-fog: #c9d2d6;
+}
+
+:root {
+  color-scheme: light;
+  font-family: var(--font-sans);
+  background: #eef2ed;
+  color: #07182d;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-padding-top: 7rem;
+}
+
+body {
+  min-width: 320px;
+  margin: 0;
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at 8% 18%, rgba(40, 100, 255, 0.08), transparent 28rem),
+    #eef2ed;
+}
+
+::selection {
+  background: #d8ff3e;
+  color: #07182d;
+}
+
+button,
+a,
+input,
+select,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+
+:focus-visible {
+  outline: 3px solid #d8ff3e;
+  outline-offset: 4px;
+}
+
+.noise::after {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  content: "";
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
+}
+
+.container-shell {
+  width: min(100% - 2rem, 86rem);
+  margin-inline: auto;
+}
+
+.button-primary,
+.button-secondary,
+.button-light {
+  display: inline-flex;
+  min-height: 3.5rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  border-radius: 999px;
+  padding-inline: 1.5rem;
+  font-size: 0.92rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  transition: transform 300ms ease, background-color 300ms ease, color 300ms ease;
+}
+
+.button-primary {
+  background: #d8ff3e;
+  color: #07182d;
+}
+
+.button-secondary {
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(7, 24, 45, 0.28);
+  color: #ffffff;
+  backdrop-filter: blur(14px);
+}
+
+.button-light {
+  background: #ffffff;
+  color: #07182d;
+}
+
+.button-primary:hover,
+.button-secondary:hover,
+.button-light:hover {
+  transform: translateY(-3px);
+}
+
+.eyebrow {
+  font-size: 0.76rem;
+  font-weight: 680;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.balance {
+  text-wrap: balance;
+}
+
+@media (max-width: 640px) {
+  .container-shell {
+    width: min(100% - 1.25rem, 86rem);
+  }
+}
+
+@media (min-width: 768px) {
+  .container-shell {
+    width: min(100% - 4rem, 86rem);
+  }
+}
+
+@media (min-width: 1280px) {
+  .container-shell {
+    width: min(100% - 7rem, 86rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
