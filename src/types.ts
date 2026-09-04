@@ -44,6 +44,15 @@ export interface Testimonial {
   image: string;
 }
 
+export interface Course {
+  title: string;
+  description: string;
+  audience: string;
+  duration: string;
+  level: string;
+  image: string;
+}
+
 export interface DiagnosticFormData {
   name: string;
   company: string;

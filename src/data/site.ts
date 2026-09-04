@@ -1,4 +1,4 @@
-import type { DemoCase, InsightArticle, Service, Testimonial } from '../types';
+import type { Course, DemoCase, InsightArticle, Service, Testimonial } from '../types';
 
 export const siteConfig = {
   email: 'hola@bluerock.pe',
@@ -187,5 +187,32 @@ export const testimonials: Testimonial[] = [
     role: 'Gerencia general',
     company: 'Firma de servicios ficticia',
     image: 'https://picsum.photos/seed/bluerock-leader-three/400/400',
+  },
+];
+
+export const courses: Course[] = [
+  {
+    title: 'Estrategia de marketing B2B',
+    description: 'Aprende a convertir objetivos comerciales en prioridades, mensajes y un plan de crecimiento que tu equipo pueda ejecutar.',
+    audience: 'Líderes de marketing y negocio',
+    duration: '6 módulos',
+    level: 'Intermedio',
+    image: 'https://picsum.photos/seed/bluerock-course-strategy/1200/900',
+  },
+  {
+    title: 'Posicionamiento que ayuda a vender',
+    description: 'Construye una posición clara y una arquitectura de mensajes útil para la web, campañas y conversaciones comerciales.',
+    audience: 'Marketing, founders y ventas',
+    duration: '5 módulos',
+    level: 'Todos los niveles',
+    image: 'https://picsum.photos/seed/bluerock-course-positioning/1200/900',
+  },
+  {
+    title: 'Performance y automatización B2B',
+    description: 'Conecta adquisición, señales de intención y seguimiento para diseñar una operación de demanda medible y escalable.',
+    audience: 'Equipos de growth y demanda',
+    duration: '8 módulos',
+    level: 'Avanzado',
+    image: 'https://picsum.photos/seed/bluerock-course-systems/1200/900',
   },
 ];

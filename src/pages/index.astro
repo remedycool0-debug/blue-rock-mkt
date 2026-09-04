@@ -7,6 +7,7 @@ import Services from '../components/Services.astro';
 import Explore from '../components/Explore.astro';
 import Manifesto from '../components/Manifesto.astro';
 import Process from '../components/Process.astro';
+import Courses from '../components/Courses.astro';
 import Cases from '../components/Cases.astro';
 import Testimonials from '../components/Testimonials.astro';
 import InsightsPreview from '../components/InsightsPreview.astro';
@@ -26,6 +27,7 @@ import Footer from '../components/Footer.astro';
     <Explore />
     <Manifesto />
     <Process />
+    <Courses />
     <Cases />
     <Testimonials />
     <InsightsPreview />
@@ -65,7 +67,7 @@ import Footer from '../components/Footer.astro';
       },
     });
 
-    gsap.utils.toArray<HTMLElement>('.service-card, .case-card').forEach((card) => {
+    gsap.utils.toArray<HTMLElement>('.service-card, .course-card, .case-card').forEach((card) => {
       gsap.from(card, {
         opacity: 0,
         y: 50,
@@ -77,6 +79,26 @@ import Footer from '../components/Footer.astro';
           once: true,
         },
       });
+    });
+
+    gsap.utils.toArray<HTMLElement>('.course-image').forEach((image) => {
+      gsap.fromTo(
+        image,
+        { scale: 0.88, opacity: 0.45 },
+        {
+          keyframes: [
+            { scale: 1, opacity: 1, duration: 0.55 },
+            { scale: 1.02, opacity: 0.38, duration: 0.45 },
+          ],
+          ease: 'none',
+          scrollTrigger: {
+            trigger: image,
+            start: 'top 94%',
+            end: 'bottom 6%',
+            scrub: 1,
+          },
+        },
+      );
     });
   });
 
